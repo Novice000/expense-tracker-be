@@ -6,7 +6,7 @@ from typing import Annotated
 import jwt
 from jwt.exceptions import InvalidTokenError
 from fastapi.security import OAuth2PasswordBearer
-from sqlmodel import select
+from sqlmodel import Session, select
 from models import User
 from schemas import TokenData
 from db import session_dependency
@@ -50,7 +50,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None) -> s
     return encoded_jwt
 
 
-async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], session: session_dependency) -> User:
+async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], session: Session) -> User:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -66,6 +66,9 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], sessio
     except InvalidTokenError:
         raise credentials_exception
     user = get_user(username=token_data.username, session=session)
+    print(user)
+    print()
+    print()
     print(user)
     if user is None:
         raise credentials_exception
