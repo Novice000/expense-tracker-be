@@ -1,7 +1,7 @@
 from datetime import timedelta
 from typing import Annotated
 from fastapi import Depends, APIRouter, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.security import  OAuth2PasswordRequestForm
 from utils.utils import verify_password
 from utils.utils import get_current_user, create_access_token
 from schemas import Token, UserIn, ReturnMessage
@@ -11,7 +11,7 @@ from utils.utils import get_current_user, get_user, get_password_hash, add_user,
 from db import session_dependency
 
 auth_router = APIRouter(prefix='/api/auth', tags=['auth'])
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+# oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 def authenticate_user(username: str, password: str, session: session_dependency) -> bool | User:
     """

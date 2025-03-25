@@ -49,7 +49,7 @@ async def get_expenses(session: session_dependency, current_user: Annotated[User
         query = select(Expense).where(Expense.user_id == current_user.id, Expense.timestamp.month == month, Expense.timestamp.year == year)
     else:
         query = select(Expense).where(Expense.user_id == current_user.id)
-    return  query
+    return  session.exec(query).all()
 
 @expense_router.get("/{expense_id}")
 async def read_expense_by_id(expense_id: int, current_user: Annotated[User, Depends(get_current_user)], session: session_dependency) -> Expense:
