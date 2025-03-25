@@ -1,4 +1,4 @@
-fastapi[standar]
+fastapi[standard]
 pyjwt
 sqlmodel
 uvicorn
