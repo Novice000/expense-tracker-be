@@ -1,3 +1,4 @@
+import os
 from passlib.context import CryptContext
 from fastapi import Depends, HTTPException, status
 from datetime import datetime, timedelta, timezone
@@ -9,12 +10,14 @@ from sqlmodel import select
 from models import User
 from schemas import TokenData
 from db import session_dependency
+from dotenv import load_dotenv
+load_dotenv()
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='api/auth/token')
 
 # to get a string like this run:
 # openssl rand -hex 32
-SECRET_KEY = "08da506c3947f03949a082bf3c0d51b7a168d4e4fefd34bdcebc1aa7a776d7d6a"
+SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_HOURS = 1
 
