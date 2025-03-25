@@ -1,8 +1,10 @@
+import os
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 import db
 from routers import auth, expense
 from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
 
 origins = [
     "http://localhost",
@@ -30,3 +32,6 @@ app.add_middleware(
 app.include_router(auth.auth_router)
 app.include_router(expense.expense_router)
 
+if __name__ == "__main__":
+    port = int(os.getenv("PORT", 8000))  # Use Render's PORT or default to 8000
+    uvicorn.run(app, host="0.0.0.0", port=port)
