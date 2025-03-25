@@ -1,6 +1,7 @@
 fastapi[standard]
 pyjwt
 passlib[bcrypt]
+bcrypt<4.1.0
 python-dotenv
 sqlmodel
 psycopg2-binary
