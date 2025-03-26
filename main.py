@@ -16,8 +16,8 @@ origins = [
 ]
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
-    await db.create_db_and_tables()  # Ensure async
+def lifespan(app: FastAPI):
+    db.create_db_and_tables()  # Ensure async
     yield
     print('Gracefully shutting down')
     await db.engine.dispose()  # Ensure async disposal
