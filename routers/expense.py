@@ -30,7 +30,7 @@ async def add_expense(expense: ExpenseIn, session: session_dependency, current_u
     return ReturnMessage(success=True, message="Expense added successfully", payload= new_expense.model_dump())
 
 @expense_router.get("/")
-async def get_expenses(session: session_dependency, current_user: Annotated[User, Depends(get_current_user)], month: int | None = None, year: int | None = None,) -> list[Expense]:
+async def get_expenses(session: session_dependency, current_user: Annotated[User, Depends(get_current_user)]) -> list[Expense]:
     """
     Get all the expenses of the current user filtered by month and year.
 
@@ -43,12 +43,7 @@ async def get_expenses(session: session_dependency, current_user: Annotated[User
     Returns:
     list[Expenses]: A list of all the expenses of the current user filtered by month and year.
     """
-    if month and year:
-        month = int(month)
-        year = int(year)
-        query = select(Expense).where(Expense.user_id == current_user.id, Expense.timestamp.month == month, Expense.timestamp.year == year)
-    else:
-        query = select(Expense).where(Expense.user_id == current_user.id)
+    query = select(Expense).where(Expense.user_id == current_user.id)
     return  session.exec(query).all()
 
 @expense_router.get("/{expense_id}")
