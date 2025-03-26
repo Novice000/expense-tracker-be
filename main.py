@@ -12,7 +12,8 @@ load_dotenv()
 origins = [
     "http://localhost",
     "http://localhost:3000",
-    "http://localhost:8000"
+    "http://localhost:8000",
+    "https://expense-tracker-git-main-efemenas-projects.vercel.app",
 ]
 
 @asynccontextmanager

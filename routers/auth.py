@@ -25,7 +25,6 @@ def authenticate_user(username: str, password: str, session: session_dependency)
     bool | User: The authenticated user or False if authentication fails.
     """
     user = get_user(username, session=session)
-    print(user)
     if not user:
         return False
     if not verify_password(password, user.password):
