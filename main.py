@@ -16,11 +16,11 @@ origins = [
 ]
 
 @asynccontextmanager
-def lifespan(app: FastAPI):
-    db.create_db_and_tables()  # Ensure async
+async def lifespan(app: FastAPI):
+    db.create_db_and_tables() 
     yield
     print('Gracefully shutting down')
-    db.engine.dispose()  # Ensure async disposal
+    db.engine.dispose()  
 
 app = FastAPI(lifespan=lifespan)
 
